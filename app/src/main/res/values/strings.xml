@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Attenda_Attempt3</string>
+    <string name="login">Login</string>
+    <string name="Email" />
+    <string name="Password" />
+    <string name="Login" />
+    <string name="name">name</string>
+    <string name="profile_image" />
+    <string name="email">email</string>
+    <string name="id">id</string>
+    <string name="logout">Logout</string>
+</resources>

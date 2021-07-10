@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "54258354417",
+    "project_id": "attenda-eb23b",
+    "storage_bucket": "attenda-eb23b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54258354417:android:a0576e3df0d587c9adc150",
+        "android_client_info": {
+          "package_name": "com.example.attenda_attempt3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54258354417-693iuesijd6j6m4vujqlb88pfq51a5b2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.attenda_attempt3",
+            "certificate_hash": "50edaa8bf0a6f53dfae3db3d79ccc115638a5454"
+          }
+        },
+        {
+          "client_id": "54258354417-a2fr1q37jaiqvlsk45a41k5kfai2bjd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX6GLjnJBJElyQN4y5rmXFq_JJsgLDKfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54258354417-a2fr1q37jaiqvlsk45a41k5kfai2bjd9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
