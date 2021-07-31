@@ -1,88 +1,146 @@
 package com.example.attenda_attempt3
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
+import android.preference.PreferenceManager
+import android.view.View
+import android.view.WindowManager
 import android.widget.Button
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
-class LoginActivityKotlin : AppCompatActivity() {
-    companion object{
-        private const val RC_SIGN_IN = 120
-    }
+class LoginActivityKotlin : Activity() {
 
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var googleSignInClient: GoogleSignInClient
+    lateinit var mGoogleSignInClient: GoogleSignInClient
+    val RC: Int = 123
+    val firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_kotlin)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
 
-        //configure google sign in
+        // Configure Google Sign In inside onCreate mentod
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        // getting the value of gso inside the GoogleSigninClient
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        // initialize the firebaseAuth variable
+        //remove var if error
+        var firebaseAuth = FirebaseAuth.getInstance()
 
-        mAuth = FirebaseAuth.getInstance()
+        val btnGoogleSignIn: Button = findViewById(R.id.btnGoogleSignIn)
 
-        val btnGoogleLogin: Button = findViewById(R.id.btnGoogleLogin)
-
-        btnGoogleLogin.setOnClickListener{
-            signIn()
+        btnGoogleSignIn.setOnClickListener { view: View? ->
+            signInGoogle()
         }
 
     }
 
-    private fun signIn() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+    // signInGoogle() function
+    private fun signInGoogle() {
+
+        val signInIntent: Intent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC)
     }
 
+    // onActivityResult() function : this is where we provide the task and data for the Google Account
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC) {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleResult(task)
+        }
+    }
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            val exception = task.exception
-            if (task.isSuccessful){
-                try {
-                    // Google Sign In was successful, authenticate with Firebase
-                    val account = task.getResult(ApiException::class.java)!!
-                    Log.d("LoginActivityKotlin", "firebaseAuthWithGoogle:" + account.id)
-                    firebaseAuthWithGoogle(account.idToken!!)
-                } catch (e: ApiException) {
-                    // Google Sign In failed, update UI appropriately
-                    Log.w("LoginActivityKotlin", "Google sign in failed", e)
-                }
-            }else{
-                Log.w("LoginActivity", exception.toString())
+    // handleResult() function -  this is where we update the UI after Google signin takes place
+    private fun handleResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
+            if (account != null) {
+                UpdateUI(account)
+            }
+        } catch (e: ApiException) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // UpdateUI() function - this is where we specify what UI updation are needed after google signin has taken place.
+    private fun UpdateUI(account: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                SavedPreference.setEmail(this, account.email.toString())
+                SavedPreference.setUsername(this, account.displayName.toString())
+                val intent = Intent(this, StudentInformationFormActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
     }
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        mAuth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("LoginActivityKotlin", "signInWithCredential:success")
-                    val intent = Intent(this,StudentInformationFormActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("LoginActivityKotlin", "signInWithCredential:failure", task.exception)
-                }
-            }
+
+    override fun onStart() {
+        super.onStart()
+        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
+            startActivity(Intent(this, StudentInformationFormActivity::class.java))
+            finish()
+            // if you do not add this check, then you would have to login everytime you start your application on your phone.
+        }
+    }
+
+    object SavedPreference {
+
+        const val EMAIL = "email"
+        const val USERNAME = "username"
+
+        private fun getSharedPreference(ctx: Context?): SharedPreferences? {
+            return PreferenceManager.getDefaultSharedPreferences(ctx)
+        }
+
+        private fun editor(context: Context, const: String, string: String) {
+            getSharedPreference(
+                context
+            )?.edit()?.putString(const, string)?.apply()
+        }
+
+        fun getEmail(context: Context) = getSharedPreference(
+            context
+        )?.getString(EMAIL, "")
+
+        fun setEmail(context: Context, email: String) {
+            editor(
+                context,
+                EMAIL,
+                email
+            )
+        }
+
+        fun setUsername(context: Context, username: String) {
+            editor(
+                context,
+                USERNAME,
+                username
+            )
+        }
+
+        fun getUsername(context: Context) = getSharedPreference(
+            context
+        )?.getString(USERNAME, "")
 
     }
 }
