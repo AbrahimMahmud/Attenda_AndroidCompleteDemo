@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivityKotlin">
 
     <TextView
         android:id="@+id/Login"
@@ -22,16 +22,22 @@
         app:layout_constraintVertical_bias="0.25" />
 
     <Button
-        android:id="@+id/SignInWithGoogle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnGoogleLogin"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/ic_google"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
         android:text="Sign In With Google"
-        android:textColor="@color/purple"
-        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
