@@ -44,66 +44,57 @@
         app:layout_constraintStart_toStartOf="@+id/textWelcomeTo"
         app:layout_constraintTop_toBottomOf="@+id/textWelcomeTo" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputFirstName"
-        android:layout_width="0dp"
+
+    <EditText
+        android:id="@+id/etFirstName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:hint="First Name"
+        android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textAttenda"
-        app:layout_constraintVertical_bias="0.1"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:textColor="@color/black"
+        app:layout_constraintVertical_bias="0.15" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="First Name" />
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLastName"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/etLastName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:hint="Last Name"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputFirstName"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/etFirstName" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Last Name" />
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputSchoolID"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
+    <EditText
+        android:id="@+id/etSchoolID"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:hint="School ID"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputLastName">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="School ID" />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/etLastName" />
 
     <Button
         android:id="@+id/btnNextStep"
@@ -111,36 +102,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
         android:layout_marginLeft="75dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginRight="75dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/bg_btn2"
         android:text="Next Step"
         android:textColor="@color/purple"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btnSignOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="75dp"
-        android:layout_marginRight="75dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/bg_btn2"
-        android:text="Sign Out"
-        android:textColor="@color/purple"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Wrong Account?"
-        android:textColor="@color/grey"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnSignOut"
-        app:layout_constraintEnd_toEndOf="@+id/btnSignOut" />
 </androidx.constraintlayout.widget.ConstraintLayout>

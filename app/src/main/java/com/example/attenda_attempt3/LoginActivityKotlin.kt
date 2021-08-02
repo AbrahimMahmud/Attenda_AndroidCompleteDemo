@@ -21,9 +21,9 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginActivityKotlin : Activity() {
 
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-    val RC: Int = 123
-    val firebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private val rc: Int = 123
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,13 +56,13 @@ class LoginActivityKotlin : Activity() {
     private fun signInGoogle() {
 
         val signInIntent: Intent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC)
+        startActivityForResult(signInIntent, rc)
     }
 
     // onActivityResult() function : this is where we provide the task and data for the Google Account
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC) {
+        if (requestCode == rc) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleResult(task)
         }
