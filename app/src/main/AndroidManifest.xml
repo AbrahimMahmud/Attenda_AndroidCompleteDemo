@@ -11,6 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Attenda_Attempt3">
+        <activity
+            android:name=".WelcomeUserFeaturesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".StudentScheduleSelectActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".StudentScheduleSelectActivity"
+            android:exported="true" />
         <activity android:name=".StudentInformationFormActivity" />
         <activity android:name=".LoginActivityKotlin" />
         <activity android:name=".SplashScreenKotlin">

@@ -20,46 +20,49 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StudentInformationFormActivity extends AppCompatActivity {
+public class StudentScheduleSelectActivity2 extends AppCompatActivity {
 
-    Button btnNextStep;
-    EditText etFirstName;
-    EditText etLastName;
-    EditText etSchoolID;
+    Button btnOnward;
+    EditText etBlock5;
+    EditText etBlock6;
+    EditText etBlock7;
+    EditText etBlock8;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_information_form);
+        setContentView(R.layout.activity_student_schedule_select2);
 
-        btnNextStep = findViewById(R.id.btnNextStep);
-        etFirstName = findViewById(R.id.etFirstName);
-        etLastName = findViewById(R.id.etLastName);
-        etSchoolID = findViewById(R.id.etSchoolID);
+        btnOnward = findViewById(R.id.btnOnward);
+        etBlock5 = findViewById(R.id.etBlock5);
+        etBlock6 = findViewById(R.id.etBlock6);
+        etBlock7 = findViewById(R.id.etBlock7);
+        etBlock8 = findViewById(R.id.etBlock8);
 
-        btnNextStep.setOnClickListener(new View.OnClickListener() {
+        btnOnward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String firstName = etFirstName.getText().toString();
-                String lastName = etLastName.getText().toString();
-                String schoolID = etSchoolID.getText().toString();
+                String block5 = etBlock5.getText().toString();
+                String block6 = etBlock6.getText().toString();
+                String block7 = etBlock7.getText().toString();
+                String block8 = etBlock8.getText().toString();
 
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                Map<String, Object> data = new HashMap<>();
-                data.put("First Name", firstName);
-                data.put("Last Name", lastName);
-                data.put("School ID", schoolID);
+                Map<String, Object> schedule2 = new HashMap<>();
+                schedule2.put("Block 5", block5);
+                schedule2.put("Block 6", block6);
+                schedule2.put("Block 7", block7);
+                schedule2.put("Block 8", block8);
 
-
-                db.collection("Users").document(uid).update(data)
+                db.collection("Users").document(uid).update(schedule2)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(getApplicationContext(), "Data Saved", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(StudentInformationFormActivity.this, StudentScheduleSelectActivity.class);
+                                Intent intent = new Intent(StudentScheduleSelectActivity2.this, WelcomeUserFeaturesActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
@@ -72,6 +75,5 @@ public class StudentInformationFormActivity extends AppCompatActivity {
                         });
             }
         });
-
     }
 }
