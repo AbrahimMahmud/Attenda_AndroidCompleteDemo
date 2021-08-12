@@ -26,6 +26,8 @@ public class StudentInformationFormActivity extends AppCompatActivity {
     EditText etFirstName;
     EditText etLastName;
     EditText etSchoolID;
+    FirebaseFirestore firebaseFirestore;
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -34,10 +36,10 @@ public class StudentInformationFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_information_form);
 
-        btnNextStep = findViewById(R.id.btnNextStep);
-        etFirstName = findViewById(R.id.etFirstName);
-        etLastName = findViewById(R.id.etLastName);
-        etSchoolID = findViewById(R.id.etSchoolID);
+        btnNextStep = findViewById(R.id.btnUpdateInfo);
+        etFirstName = findViewById(R.id.etUpdateFirstName);
+        etLastName = findViewById(R.id.etUpdateLastName);
+        etSchoolID = findViewById(R.id.etUpdateSchoolID);
 
         btnNextStep.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,21 +49,35 @@ public class StudentInformationFormActivity extends AppCompatActivity {
                 String schoolID = etSchoolID.getText().toString();
 
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                String uid2 = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 Map<String, Object> data = new HashMap<>();
-                data.put("First Name", firstName);
-                data.put("Last Name", lastName);
-                data.put("School ID", schoolID);
+                data.put("User ID", uid2);
 
-
-                db.collection("Users").document(uid).update(data)
+                db.collection("Users").document(uid).set(data)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Toast.makeText(getApplicationContext(), "Data Saved", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(StudentInformationFormActivity.this, StudentScheduleSelectActivity.class);
-                                startActivity(intent);
-                                finish();
+                                Map<String, Object> userdata = new HashMap<>();
+                                userdata.put("firstName", firstName);
+                                userdata.put("lastName", lastName);
+                                userdata.put("schoolID", schoolID);
+                                db.collection("Users").document(uid).update(userdata)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(getApplicationContext(), "Data Saved", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(StudentInformationFormActivity.this, StudentScheduleSelectActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(getApplicationContext(), "Error Occurred, Could Not Switch Activities", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

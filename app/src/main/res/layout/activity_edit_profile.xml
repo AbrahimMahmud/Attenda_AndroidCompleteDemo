@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/student_information_background"
-    tools:context=".StudentInformationFormActivity" >
+    tools:context=".EditProfileActivity">
 
     <ImageView
         android:id="@+id/attendaLogo"
@@ -55,11 +55,11 @@
         android:layout_marginRight="32dp"
         android:hint="First Name"
         android:maxLines="1"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textAttenda"
-        android:textColor="@color/black"
         app:layout_constraintVertical_bias="0.15" />
 
 
@@ -74,9 +74,9 @@
         android:layout_marginRight="32dp"
         android:hint="Last Name"
         android:maxLines="1"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/etUpdateFirstName" />
 
 
@@ -91,9 +91,9 @@
         android:layout_marginRight="32dp"
         android:hint="School ID"
         android:maxLines="1"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/etUpdateLastName" />
 
     <Button
@@ -101,12 +101,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
-        android:layout_marginLeft="75dp"
         android:layout_marginEnd="75dp"
-        android:layout_marginRight="75dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/bg_btn2"
-        android:text="Next Step"
+        android:text="Update Information"
         android:textColor="@color/purple"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

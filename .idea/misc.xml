@@ -3,8 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_login_kotlin.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/bg_btn3.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/layout/activity_attendance_submitted.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/layout/activity_btn_to_scanner.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.22239583333333332" />
+        <entry key="app/src/main/res/layout/activity_login_kotlin.xml" value="0.21041666666666667" />
+        <entry key="app/src/main/res/layout/activity_post_qrscan.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/layout/activity_qrscanner.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/layout/activity_qrscanner_to_gsheets.xml" value="0.11" />
         <entry key="app/src/main/res/layout/activity_sample.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_sign_out.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/activity_student_information_form.xml" value="0.2171875" />
         <entry key="app/src/main/res/layout/activity_student_schedule_select.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_student_schedule_select2.xml" value="0.2171875" />
@@ -21,7 +29,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.50233150832824" />
+        <option name="scale" value="0.11" />
       </ProjectState>
     </option>
   </component>

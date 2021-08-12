@@ -53,10 +53,10 @@ public class StudentScheduleSelectActivity extends AppCompatActivity {
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 Map<String, Object> schedule = new HashMap<>();
-                schedule.put("Block 1", block1);
-                schedule.put("Block 2", block2);
-                schedule.put("Block 3", block3);
-                schedule.put("Block 4", block4);
+                schedule.put("block1", block1);
+                schedule.put("block2", block2);
+                schedule.put("block3", block3);
+                schedule.put("block4", block4);
 
                 db.collection("Users").document(uid).update(schedule)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
