@@ -22,8 +22,7 @@ import java.util.Map;
 public class EditProfileActivity extends AppCompatActivity {
 
     Button btnUpdateInfo;
-    EditText etUpdateFirstName;
-    EditText etUpdateLastName;
+    EditText etUpdateFullName;
     EditText etUpdateSchoolID;
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
@@ -34,23 +33,20 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         btnUpdateInfo = findViewById(R.id.btnUpdateInfo);
-        etUpdateFirstName = findViewById(R.id.etUpdateFirstName);
-        etUpdateLastName = findViewById(R.id.etUpdateLastName);
-        etUpdateSchoolID = findViewById(R.id.etUpdateSchoolID);
+        etUpdateFullName = findViewById(R.id.etFullName);
+        etUpdateSchoolID = findViewById(R.id.etSchoolID);
 
         btnUpdateInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String updatedFirstName = etUpdateFirstName.getText().toString();
-                String updatedLastName = etUpdateLastName.getText().toString();
+                String updatedStudentName = etUpdateFullName.getText().toString();
                 String updatedSchoolID = etUpdateSchoolID.getText().toString();
 
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 Map<String, Object> updateUserInfo = new HashMap<>();
-                updateUserInfo.put("First Name", updatedFirstName);
-                updateUserInfo.put("Last Name", updatedLastName);
-                updateUserInfo.put("School ID", updatedSchoolID);
+                updateUserInfo.put("studentName", updatedStudentName);
+                updateUserInfo.put("schoolID", updatedSchoolID);
 
 
                 firebaseFirestore.collection("Users").document(uid).update(updateUserInfo)

@@ -34,7 +34,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
     ZXingScannerView scannerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    String status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +68,16 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
         String block = rawResult.getText();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        String str = sdf.format(new Date());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        String formattedTime = simpleDateFormat.format(new Date());
+
+        //make time functions -> u already made the string on line 37
 
         Map<String, Object> Block = new HashMap<>();
         Block.put("currentBlock", block);
-        Block.put("timeOfScan", str);
+        Block.put("timeOfScan", formattedTime);
 
-        db.collection("Users").document(uid).update(Block)
+        db.collection("users").document(uid).update(Block)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {

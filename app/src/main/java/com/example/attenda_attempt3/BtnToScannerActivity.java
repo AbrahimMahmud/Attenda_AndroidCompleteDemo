@@ -41,7 +41,5 @@ public class BtnToScannerActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 }

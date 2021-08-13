@@ -64,11 +64,9 @@
     <EditText
         android:id="@+id/etBlock5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="64dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:hint="Block 5 Class"
         android:maxLines="1"
         android:textColor="@color/black"
@@ -81,11 +79,9 @@
     <EditText
         android:id="@+id/etBlock6"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="64dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:hint="Block 6 Class"
         android:maxLines="1"
         android:textColor="@color/black"
@@ -98,11 +94,9 @@
     <EditText
         android:id="@+id/etBlock7"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="64dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:hint="Block 7 Class"
         android:maxLines="1"
         android:textColor="@color/black"
@@ -115,11 +109,9 @@
     <EditText
         android:id="@+id/etBlock8"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="64dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:hint="Block 8 Class"
         android:maxLines="1"
         android:textColor="@color/black"
@@ -145,5 +137,38 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkboxBlock5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/etBlock5"
+        app:layout_constraintEnd_toStartOf="@+id/etBlock5"
+        app:layout_constraintTop_toTopOf="@+id/etBlock5" />
+
+    <CheckBox
+        android:id="@+id/checkboxBlock6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/etBlock6"
+        app:layout_constraintEnd_toStartOf="@+id/etBlock6"
+        app:layout_constraintTop_toTopOf="@+id/etBlock6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/checkboxBlock7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/etBlock7"
+        app:layout_constraintEnd_toStartOf="@+id/etBlock7"
+        app:layout_constraintTop_toTopOf="@+id/etBlock7" />
+
+    <CheckBox
+        android:id="@+id/checkboxBlock8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/etBlock8"
+        app:layout_constraintEnd_toStartOf="@+id/etBlock8"
+        app:layout_constraintTop_toTopOf="@+id/etBlock8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

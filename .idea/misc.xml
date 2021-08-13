@@ -14,8 +14,8 @@
         <entry key="app/src/main/res/layout/activity_sample.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_sign_out.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/activity_student_information_form.xml" value="0.2171875" />
-        <entry key="app/src/main/res/layout/activity_student_schedule_select.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_student_schedule_select2.xml" value="0.2171875" />
+        <entry key="app/src/main/res/layout/activity_student_schedule_select.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_student_schedule_select2.xml" value="0.11" />
         <entry key="app/src/main/res/layout/activity_welcome_user_features.xml" value="0.2171875" />
       </map>
     </option>

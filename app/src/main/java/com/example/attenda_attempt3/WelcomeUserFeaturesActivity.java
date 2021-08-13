@@ -30,12 +30,12 @@ public class WelcomeUserFeaturesActivity extends AppCompatActivity {
 
         uid = firebaseAuth.getCurrentUser().getUid();
 
-        DocumentReference documentReference = firebaseFirestore.collection("Users").document(uid);
+        DocumentReference documentReference = firebaseFirestore.collection("users").document(uid);
 
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                userName.setText(documentSnapshot.getString("First Name"));
+                userName.setText(documentSnapshot.getString("studentName"));
             }
         });
     }

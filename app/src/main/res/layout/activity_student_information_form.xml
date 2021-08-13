@@ -46,55 +46,34 @@
 
 
     <EditText
-        android:id="@+id/etUpdateFirstName"
+        android:id="@+id/etFullName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:hint="First Name"
+        android:hint="First and Last Name"
         android:maxLines="1"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textAttenda"
-        android:textColor="@color/black"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.2" />
 
 
     <EditText
-        android:id="@+id/etUpdateLastName"
+        android:id="@+id/etSchoolID"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:hint="Last Name"
-        android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/etUpdateFirstName" />
-
-
-    <EditText
-        android:id="@+id/etUpdateSchoolID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:hint="School ID"
         android:maxLines="1"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/etUpdateLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/etFullName" />
 
     <Button
         android:id="@+id/btnUpdateInfo"
