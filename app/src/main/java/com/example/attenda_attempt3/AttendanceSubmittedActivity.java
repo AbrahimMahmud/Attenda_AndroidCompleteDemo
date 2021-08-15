@@ -37,12 +37,12 @@ public class AttendanceSubmittedActivity extends AppCompatActivity {
 
         uid = firebaseAuth.getCurrentUser().getUid();
 
-        DocumentReference documentReference = firebaseFirestore.collection("Users").document(uid);
+        DocumentReference documentReference = firebaseFirestore.collection("users").document(uid);
 
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                blockNumber.setText(documentSnapshot.getString("Current Block"));
+                blockNumber.setText(documentSnapshot.getString("currentBlock"));
             }
         });
 

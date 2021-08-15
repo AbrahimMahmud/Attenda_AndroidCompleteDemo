@@ -32,6 +32,8 @@ public class StudentScheduleSelectActivity extends AppCompatActivity {
     EditText etBlock4;
     CheckBox checkboxBlock1, checkboxBlock2, checkboxBlock3, checkboxBlock4;
 
+    public static String block1Text, block2Text, block3Text, block4Text;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -51,13 +53,13 @@ public class StudentScheduleSelectActivity extends AppCompatActivity {
         checkboxBlock4 = findViewById(R.id.checkboxBlock4);
 
         //change room number with actual room number
-        //1st room, blocks 1-8
+        //1st room, blocks 1-4
         String r111b1 = "111-1";
         String r111b2 = "111-2";
         String r111b3 = "111-3";
         String r111b4 = "111-4";
 
-        //2nd room, blocks 1-8
+        //2nd room, blocks 1-4
         String r112b1 = "112-1";
         String r112b2 = "112-2";
         String r112b3 = "112-3";
@@ -212,6 +214,11 @@ public class StudentScheduleSelectActivity extends AppCompatActivity {
                 String block2 = etBlock2.getText().toString();
                 String block3 = etBlock3.getText().toString();
                 String block4 = etBlock4.getText().toString();
+
+                String block1Text = block1;
+                String block2Text = block2;
+                String block3Text = block3;
+                String block4Text = block4;
 
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

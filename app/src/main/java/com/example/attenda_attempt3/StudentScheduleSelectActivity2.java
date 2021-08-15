@@ -32,6 +32,8 @@ public class StudentScheduleSelectActivity2 extends AppCompatActivity {
     EditText etBlock8;
     CheckBox checkboxBlock1, checkboxBlock2, checkboxBlock3, checkboxBlock4, checkboxBlock5, checkboxBlock6, checkboxBlock7, checkboxBlock8;
 
+    public static String block5Text, block6Text, block7Text, block8Text;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -55,21 +57,13 @@ public class StudentScheduleSelectActivity2 extends AppCompatActivity {
         checkboxBlock8 = findViewById(R.id.checkboxBlock8);
 
         //change room number with actual room number
-        //1st room, blocks 1-8
-        String r111b1 = "111-1";
-        String r111b2 = "111-2";
-        String r111b3 = "111-3";
-        String r111b4 = "111-4";
+        //1st room, blocks 5-8
         String r111b5 = "111-5";
         String r111b6 = "111-6";
         String r111b7 = "111-7";
         String r111b8 = "111-8";
 
-        //2nd room, blocks 1-8
-        String r112b1 = "112-1";
-        String r112b2 = "112-2";
-        String r112b3 = "112-3";
-        String r112b4 = "112-4";
+        //2nd room, blocks 5-8
         String r112b5 = "112-5";
         String r112b6 = "112-6";
         String r112b7 = "112-7";
@@ -218,11 +212,16 @@ public class StudentScheduleSelectActivity2 extends AppCompatActivity {
                 }
 
 
-                //send data of ALL blocks to "Users" collection for notifications
+                //send data of ALL blocks to "users" collection for notifications
                 String block5 = etBlock5.getText().toString();
                 String block6 = etBlock6.getText().toString();
                 String block7 = etBlock7.getText().toString();
                 String block8 = etBlock8.getText().toString();
+
+                String block5Text = block5;
+                String block6Text = block6;
+                String block7Text = block7;
+                String block8Text = block8;
 
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
