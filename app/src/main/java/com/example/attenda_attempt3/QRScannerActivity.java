@@ -32,7 +32,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QRScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
-    public static String dateOfScanForStatus;
+    public static String dateOfQRScan;
     ZXingScannerView scannerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String day;
@@ -68,12 +68,10 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
     @Override
     public void handleResult(Result rawResult) {
         String block = rawResult.getText();
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         SimpleDateFormat dateOfScanStatus = new SimpleDateFormat("MM/dd/yyyy");
 
-        dateOfScanForStatus = dateOfScanStatus.format(new Date());
+        dateOfQRScan = dateOfScanStatus.format(new Date());
         timeOfScanForStatus = simpleDateFormat.format(new Date());
 
         //make time functions -> u already made the string on line 37
@@ -81,12 +79,13 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
         Map<String, Object> Block = new HashMap<>();
         Block.put("currentBlock", block);
         Block.put("timeOfScan", timeOfScanForStatus);
-        Block.put("dateOfScanForStatus", dateOfScanForStatus);
+        Block.put("dateOfScanForStatus", dateOfQRScan);
 
-        Map<String, Object> date = new HashMap<>();
-        date.put("dateOfScanForStatus", date);
+        Map<String, Object> Date = new HashMap<>();
+        Date.put("dateOfScanForStatus", dateOfQRScan);
 
-        db.collection("dateOfScanForStatus").document("dateOfScanForStatus").update(date);
+        db.collection("dateOfScanForStatus").document("dateOfScanForStatus").update(Date);
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         db.collection("users").document(uid).update(Block)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -112,7 +111,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     }
                 });
         //test date
-        String August14 = "08/14/2021";
+        String August15 = "08/15/2021";
 
         //october weekdays
         String October1 = "10/01/2021";
@@ -164,10 +163,10 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
         String Day3 = "day3";
         String Day4 = "day4";
 
-        String dateOfScan = dateOfScanForStatus;
+        String dateOfScan = dateOfQRScan;
 
         //test date
-        if (dateOfScan.equals(August14)) {
+        if (dateOfScan.equals(August15)) {
             day = Day4;
         }
 
@@ -295,7 +294,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
         Map<String, Object> dayOfScan = new HashMap<>();
         dayOfScan.put("dayOneToFour`", day);
 
-        db.collection("dayOneThroughFour").document("dayOneThoughFour").update(dayOfScan)
+        db.collection("dayOneThroughFour").document("dayOneThoughFour").set(dayOfScan)
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {

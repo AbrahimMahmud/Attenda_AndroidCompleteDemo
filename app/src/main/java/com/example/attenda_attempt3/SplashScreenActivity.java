@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class SplashScreenActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
-    FirebaseFirestore firebaseFirestore;
+    DocumentReference documentReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,11 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
                 if (user != null) {
                     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    DocumentReference documentReference = firebaseFirestore.collection("users").document(uid);
+                    documentReference = firebaseFirestore.collection("users").document(uid);
                     documentReference.get()
                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override

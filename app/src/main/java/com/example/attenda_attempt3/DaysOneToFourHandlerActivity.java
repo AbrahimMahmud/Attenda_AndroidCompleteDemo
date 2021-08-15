@@ -1,6 +1,6 @@
 package com.example.attenda_attempt3;
 
-import static com.example.attenda_attempt3.QRScannerActivity.dateOfScanForStatus;
+import static com.example.attenda_attempt3.QRScannerActivity.dateOfQRScan;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -77,7 +77,7 @@ public class DaysOneToFourHandlerActivity extends AppCompatActivity {
         String Day3 = "day3";
         String Day4 = "day4";
 
-        String dateOfScan = dateOfScanForStatus;
+        String dateOfScan = dateOfQRScan;
 
         //test date
         if (dateOfScan.equals(August14)) {
