@@ -1,10 +1,10 @@
 package com.example.attenda_attempt3;
 
 import static com.example.attenda_attempt3.DaysOneToFourHandlerActivity.day;
-import static com.example.attenda_attempt3.StudentScheduleSelectActivity.block1Text;
-import static com.example.attenda_attempt3.StudentScheduleSelectActivity.block2Text;
-import static com.example.attenda_attempt3.StudentScheduleSelectActivity.block3Text;
-import static com.example.attenda_attempt3.StudentScheduleSelectActivity.block4Text;
+import static com.example.attenda_attempt3.StudentScheduleSelectActivity.block1;
+import static com.example.attenda_attempt3.StudentScheduleSelectActivity.block2;
+import static com.example.attenda_attempt3.StudentScheduleSelectActivity.block3;
+import static com.example.attenda_attempt3.StudentScheduleSelectActivity.block4;
 import static com.example.attenda_attempt3.StudentScheduleSelectActivity2.block5Text;
 import static com.example.attenda_attempt3.StudentScheduleSelectActivity2.block6Text;
 import static com.example.attenda_attempt3.StudentScheduleSelectActivity2.block7Text;
@@ -23,10 +23,10 @@ public class ScheduleAndNotificationHandlerActivity extends AppCompatActivity {
 
         String dayNumber = day;
 
-        String blockOne = block1Text;
-        String blockTwo = block2Text;
-        String blockThree = block3Text;
-        String blockFour = block4Text;
+        String blockOne = block1;
+        String blockTwo = block2;
+        String blockThree = block3;
+        String blockFour = block4;
         String blockFive = block5Text;
         String blockSix = block6Text;
         String blockSeven = block7Text;

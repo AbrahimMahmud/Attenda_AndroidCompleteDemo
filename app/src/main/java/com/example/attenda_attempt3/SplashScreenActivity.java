@@ -1,8 +1,12 @@
 package com.example.attenda_attempt3;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +21,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     DocumentReference documentReference;
+    private static final String TAG = "SplashScreenActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,20 @@ public class SplashScreenActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
+
+                ComponentName componentName = new ComponentName(SplashScreenActivity.this, StatusRemoverMidnightService.class);
+                JobInfo info = new JobInfo.Builder(123, componentName)
+                        .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                        .setPersisted(true)
+                        .build();
+                JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+                int resultCode = scheduler.schedule(info);
+                if (resultCode == JobScheduler.RESULT_SUCCESS) {
+                    Log.d(TAG, "Job Scheduled");
+                } else {
+                    Log.d(TAG, "Job Scheduling Failed");
+                }
+
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();

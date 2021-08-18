@@ -32,7 +32,7 @@ public class StudentScheduleSelectActivity extends AppCompatActivity {
     EditText etBlock4;
     CheckBox checkboxBlock1, checkboxBlock2, checkboxBlock3, checkboxBlock4;
 
-    public static String block1Text, block2Text, block3Text, block4Text;
+    public static String block1, block2, block3, block4;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -215,10 +215,6 @@ public class StudentScheduleSelectActivity extends AppCompatActivity {
                 String block3 = etBlock3.getText().toString();
                 String block4 = etBlock4.getText().toString();
 
-                String block1Text = block1;
-                String block2Text = block2;
-                String block3Text = block3;
-                String block4Text = block4;
 
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
