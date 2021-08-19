@@ -40,7 +40,6 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String day;
     String timeForStatus;
-    int secondBlockStart = 940;
     String timeOfScan;
     String r111b1 = "111-1";
     String r111b2 = "111-2";
@@ -134,7 +133,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     }
                 });
         //test date
-        String August18 = "08/18/2021";
+        String August19 = "08/19/2021";
 
         //october weekdays
         String October1 = "10/01/2021";
@@ -189,8 +188,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
         String dateOfScan = dateOfQRScan;
 
         //test date
-        if (dateOfScan.equals(August18)) {
-            day = Day1;
+        if (dateOfScan.equals(August19)) {
+            day = Day4;
         }
 
         //october weekdays
@@ -358,7 +357,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
         if (day.equals(Day1)) {
             //ROOM 111 BLOCK 1 STATUS
             if (QRScanText.equals(r111b1)) {
-                if (diffInTimeFirstBlock < 0 && diffInTimeFirstBlock > -100) {
+                if (diffInTimeFirstBlock < 0 && diffInTimeFirstBlock > -60) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -382,7 +381,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFirstBlock < -100) {
+                } else if (diffInTimeFirstBlock < -60) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -393,7 +392,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //ROOM 112 BLOCK 1 STATUS
             if (QRScanText.equals(r112b1)) {
-                if (diffInTimeFirstBlock < 0 && diffInTimeFirstBlock > -100) {
+                if (diffInTimeFirstBlock < 0 && diffInTimeFirstBlock > -60) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -417,7 +416,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFirstBlock < -100) {
+                } else if (diffInTimeFirstBlock < -60) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -428,7 +427,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //ROOM 111 BLOCK 2 STATUS
             if (QRScanText.equals(r111b2)) {
-                if (diffInTimeSecondBlock < 0 && diffInTimeSecondBlock > -100) {
+                if (diffInTimeSecondBlock < 0 && diffInTimeSecondBlock > -50) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -452,7 +451,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSecondBlock < -100) {
+                } else if (diffInTimeSecondBlock < -50) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -463,7 +462,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //ROOM 112 BLOCK 2 STATUS
             if (QRScanText.equals(r112b2)) {
-                if (diffInTimeSecondBlock < 0 && diffInTimeSecondBlock > -100) {
+                if (diffInTimeSecondBlock < 0 && diffInTimeSecondBlock > -50) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -487,7 +486,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSecondBlock < -100) {
+                } else if (diffInTimeSecondBlock < -50) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -498,7 +497,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //ROOM 111 BLOCK 3 STATUS
             if (QRScanText.equals(r111b3)) {
-                if (diffInTimeThirdBlock < 0 && diffInTimeThirdBlock > -100) {
+                if (diffInTimeThirdBlock < 0 && diffInTimeThirdBlock > -50) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -522,7 +521,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeThirdBlock < -100) {
+                } else if (diffInTimeThirdBlock < -50) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -533,7 +532,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //ROOM 112 BLOCK 3 STATUS
             if (QRScanText.equals(r112b3)) {
-                if (diffInTimeThirdBlock < 0 && diffInTimeThirdBlock > -100) {
+                if (diffInTimeThirdBlock < 0 && diffInTimeThirdBlock > -50) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -557,7 +556,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeThirdBlock < -100) {
+                } else if (diffInTimeThirdBlock < -50) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -568,7 +567,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //ROOM 111 BLOCK 5 STATUS
             if (QRScanText.equals(r111b5)) {
-                if (diffInTimeFourthBlock < 0 && diffInTimeFourthBlock > -100) {
+                if (diffInTimeFourthBlock < 0 && diffInTimeFourthBlock > -50) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -592,7 +591,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFourthBlock < -100) {
+                } else if (diffInTimeFourthBlock < -50) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -603,7 +602,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //ROOM 112 BLOCK 5 STATUS
             if (QRScanText.equals(r112b5)) {
-                if (diffInTimeFourthBlock < 0 && diffInTimeFourthBlock > -100) {
+                if (diffInTimeFourthBlock < 0 && diffInTimeFourthBlock > -50) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -627,7 +626,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFourthBlock < -100) {
+                } else if (diffInTimeFourthBlock < -50) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -638,7 +637,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //ROOM 111 BLOCK 6 STATUS
             if (QRScanText.equals(r111b6)) {
-                if (diffInTimeFifthBlock < 0 && diffInTimeFifthBlock > -100) {
+                if (diffInTimeFifthBlock < 0 && diffInTimeFifthBlock > -50) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -662,7 +661,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFifthBlock < -100) {
+                } else if (diffInTimeFifthBlock < -50) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -673,7 +672,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //ROOM 112 BLOCK 6 STATUS
             if (QRScanText.equals(r112b6)) {
-                if (diffInTimeFifthBlock < 0 && diffInTimeFifthBlock > -100) {
+                if (diffInTimeFifthBlock < 0 && diffInTimeFifthBlock > -50) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -697,7 +696,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFifthBlock < -100) {
+                } else if (diffInTimeFifthBlock < -50) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -708,7 +707,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //ROOM 111 BLOCK 7 STATUS
             if (QRScanText.equals(r111b7)) {
-                if (diffInTimeSixthBlock < 0 && diffInTimeSixthBlock > -100) {
+                if (diffInTimeSixthBlock < 0 && diffInTimeSixthBlock > -55) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -732,7 +731,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSixthBlock < -100) {
+                } else if (diffInTimeSixthBlock < -55) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -743,7 +742,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //ROOM 112 BLOCK 7 STATUS
             if (QRScanText.equals(r112b7)) {
-                if (diffInTimeSixthBlock < 0 && diffInTimeSixthBlock > -100) {
+                if (diffInTimeSixthBlock < 0 && diffInTimeSixthBlock > -55) {
                     String status;
                     status = tardy;
                     Map<String, Object> tardy1 = new HashMap<>();
@@ -767,7 +766,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSixthBlock < -100) {
+                } else if (diffInTimeSixthBlock < -55) {
                     String status;
                     status = absent;
                     Map<String, Object> absent1 = new HashMap<>();
@@ -780,14 +779,1332 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
             if (QRScanText.equals(r111b4)) {
                 Toast.makeText(getApplicationContext(), "You Do Not Have Block 4 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
             }
+            if (QRScanText.equals(r112b4)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 4 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
 
             //IF USER SCANS BLOCK 8 QR CODE, IT RETURNS TOAST
             if (QRScanText.equals(r111b8)) {
                 Toast.makeText(getApplicationContext(), "You Do Not Have Block 8 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
             }
+            if (QRScanText.equals(r112b8)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 8 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
         }
 
-        //make if(day.equals(Day2))
+        if (day.equals(Day2)) {
+            //ROOM 111 BLOCK 2 STATUS
+            if (QRScanText.equals(r111b2)) {
+                if (diffInTimeFirstBlock < 0 && diffInTimeFirstBlock > -60) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-2").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-2").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock < -60) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-2").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 2 STATUS
+            if (QRScanText.equals(r112b2)) {
+                if (diffInTimeFirstBlock < 0 && diffInTimeFirstBlock > -60) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-2").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-2").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock < -60) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-2").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 3 STATUS
+            if (QRScanText.equals(r111b3)) {
+                if (diffInTimeSecondBlock < 0 && diffInTimeSecondBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-3").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-3").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-3").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 3 STATUS
+            if (QRScanText.equals(r112b3)) {
+                if (diffInTimeSecondBlock < 0 && diffInTimeSecondBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-3").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-3").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-3").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 4 STATUS
+            if (QRScanText.equals(r111b4)) {
+                if (diffInTimeThirdBlock < 0 && diffInTimeThirdBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-4").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-4").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-4").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 4 STATUS
+            if (QRScanText.equals(r112b4)) {
+                if (diffInTimeThirdBlock < 0 && diffInTimeThirdBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-4").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-4").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-4").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 6 STATUS
+            if (QRScanText.equals(r111b6)) {
+                if (diffInTimeFourthBlock < 0 && diffInTimeFourthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-6").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-6").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-6").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 6 STATUS
+            if (QRScanText.equals(r112b6)) {
+                if (diffInTimeFourthBlock < 0 && diffInTimeFourthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-6").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-6").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-6").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 7 STATUS
+            if (QRScanText.equals(r111b7)) {
+                if (diffInTimeFifthBlock < 0 && diffInTimeFifthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-7").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-7").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-7").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 7
+            if (QRScanText.equals(r112b7)) {
+                if (diffInTimeFifthBlock < 0 && diffInTimeFifthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-7").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-7").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-7").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 8 STATUS
+            if (QRScanText.equals(r111b8)) {
+                if (diffInTimeSixthBlock < 0 && diffInTimeSixthBlock > -55) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-8").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-8").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock < -55) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-8").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 8 STATUS
+            if (QRScanText.equals(r112b8)) {
+                if (diffInTimeSixthBlock < 0 && diffInTimeSixthBlock > -55) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-8").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-8").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock < -55) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-8").document(uid2).update(absent1);
+                }
+            }
+
+            //IF USER SCANS BLOCK 4 QR CODE, IT RETURNS TOAST
+            if (QRScanText.equals(r111b1)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 1 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+            if (QRScanText.equals(r112b1)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 1 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+
+            //IF USER SCANS BLOCK 8 QR CODE, IT RETURNS TOAST
+            if (QRScanText.equals(r111b5)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 5 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+            if (QRScanText.equals(r112b5)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 5 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if (day.equals(Day3)) {
+            //ROOM 111 BLOCK 3 STATUS
+            if (QRScanText.equals(r111b3)) {
+                if (diffInTimeFirstBlock < 0 && diffInTimeFirstBlock > -60) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-3").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-3").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock < -60) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-3").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 3 STATUS
+            if (QRScanText.equals(r112b3)) {
+                if (diffInTimeFirstBlock < 0 && diffInTimeFirstBlock > -60) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-3").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-3").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock < -60) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-3").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 4 STATUS
+            if (QRScanText.equals(r111b4)) {
+                if (diffInTimeSecondBlock < 0 && diffInTimeSecondBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-4").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-4").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-4").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 4 STATUS
+            if (QRScanText.equals(r112b4)) {
+                if (diffInTimeSecondBlock < 0 && diffInTimeSecondBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-4").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-4").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-4").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 1 STATUS
+            if (QRScanText.equals(r111b1)) {
+                if (diffInTimeThirdBlock < 0 && diffInTimeThirdBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-1").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-1").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-1").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 1 STATUS
+            if (QRScanText.equals(r112b1)) {
+                if (diffInTimeThirdBlock < 0 && diffInTimeThirdBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-1").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-1").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-1").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 7 STATUS
+            if (QRScanText.equals(r111b7)) {
+                if (diffInTimeFourthBlock < 0 && diffInTimeFourthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-7").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-7").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-7").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 7 STATUS
+            if (QRScanText.equals(r112b7)) {
+                if (diffInTimeFourthBlock < 0 && diffInTimeFourthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-7").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-7").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-7").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 8 STATUS
+            if (QRScanText.equals(r111b8)) {
+                if (diffInTimeFifthBlock < 0 && diffInTimeFifthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-8").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-8").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-8").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 8 STATUS
+            if (QRScanText.equals(r112b8)) {
+                if (diffInTimeFifthBlock < 0 && diffInTimeFifthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-8").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-8").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-8").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 5 STATUS
+            if (QRScanText.equals(r111b5)) {
+                if (diffInTimeSixthBlock < 0 && diffInTimeSixthBlock > -55) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-5").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-5").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock < -55) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-5").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 5 STATUS
+            if (QRScanText.equals(r112b5)) {
+                if (diffInTimeSixthBlock < 0 && diffInTimeSixthBlock > -55) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-5").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-5").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock < -55) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-5").document(uid2).update(absent1);
+                }
+            }
+
+            //IF USER SCANS BLOCK 2 QR CODE, IT RETURNS TOAST
+            if (QRScanText.equals(r111b2)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 2 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+            if (QRScanText.equals(r112b2)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 2 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+
+            //IF USER SCANS BLOCK 6 QR CODE, IT RETURNS TOAST
+            if (QRScanText.equals(r111b6)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 6 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+            if (QRScanText.equals(r112b6)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 6 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if (day.equals(Day4)) {
+            //ROOM 111 BLOCK 4 STATUS
+            if (QRScanText.equals(r111b4)) {
+                if (diffInTimeFirstBlock < 0 && diffInTimeFirstBlock > -60) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-4").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-4").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock < -60) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-4").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 4 STATUS
+            if (QRScanText.equals(r112b4)) {
+                if (diffInTimeFirstBlock < 0 && diffInTimeFirstBlock > -60) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-4").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-4").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFirstBlock < -60) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-4").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 1 STATUS
+            if (QRScanText.equals(r111b1)) {
+                if (diffInTimeSecondBlock < 0 && diffInTimeSecondBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-1").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-1").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-1").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 1 STATUS
+            if (QRScanText.equals(r112b1)) {
+                if (diffInTimeSecondBlock < 0 && diffInTimeSecondBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-1").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-1").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSecondBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-1").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 2 STATUS
+            if (QRScanText.equals(r111b2)) {
+                if (diffInTimeThirdBlock < 0 && diffInTimeThirdBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-2").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-2").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-2").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 2 STATUS
+            if (QRScanText.equals(r112b2)) {
+                if (diffInTimeThirdBlock < 0 && diffInTimeThirdBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-2").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-2").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeThirdBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-2").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCk 8 STATUS
+            if (QRScanText.equals(r111b8)) {
+                if (diffInTimeFourthBlock < 0 && diffInTimeFourthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-8").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-8").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-8").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 8 STATUS
+            if (QRScanText.equals(r112b8)) {
+                if (diffInTimeFourthBlock < 0 && diffInTimeFourthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-8").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-8").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFourthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-8").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCk 5 STATUS
+            if (QRScanText.equals(r111b5)) {
+                if (diffInTimeFifthBlock < 0 && diffInTimeFifthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-5").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-5").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-5").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 5 STATUS
+            if (QRScanText.equals(r112b5)) {
+                if (diffInTimeFifthBlock < 0 && diffInTimeFifthBlock > -50) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-5").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-5").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeFifthBlock < -50) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-5").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 111 BLOCK 6 STATUS
+            if (QRScanText.equals(r111b6)) {
+                if (diffInTimeSixthBlock < 0 && diffInTimeSixthBlock > -55) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("111-6").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("111-6").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock < -55) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("111-6").document(uid2).update(absent1);
+                }
+            }
+
+            //ROOM 112 BLOCK 6 STATUS
+            if (QRScanText.equals(r112b6)) {
+                if (diffInTimeSixthBlock < 0 && diffInTimeSixthBlock > -55) {
+                    String status;
+                    status = tardy;
+                    Map<String, Object> tardy1 = new HashMap<>();
+                    tardy1.put("status", status);
+                    db.collection("112-6").document(uid2).update(tardy1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock >= 0) {
+                    String status;
+                    status = present;
+                    Map<String, Object> present1 = new HashMap<>();
+                    present1.put("status", status);
+                    db.collection("112-6").document(uid2).update(present1)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else if (diffInTimeSixthBlock < -55) {
+                    String status;
+                    status = absent;
+                    Map<String, Object> absent1 = new HashMap<>();
+                    absent1.put("status", status);
+                    db.collection("112-6").document(uid2).update(absent1);
+                }
+            }
+
+            //IF USER SCANS BLOCK 3 QR CODE, IT RETURNS TOAST
+            if (QRScanText.equals(r111b3)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 3 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+            if (QRScanText.equals(r112b3)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 3 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+
+            //IF USER SCANS BLOCK 7 QR CODE, IT RETURNS TOAST
+            if (QRScanText.equals(r111b7)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 7 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+            if (QRScanText.equals(r112b7)) {
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 7 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
