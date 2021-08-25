@@ -17,7 +17,6 @@ import java.util.TimerTask;
 
 public class StatusRemoverMidnightService extends android.app.job.JobService {
     private static final String TAG = "Remove Status From Firestore";
-    //figure this out, dont give up like you did yesterday  -past abrahim
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     DocumentReference r111_b1 = db.collection("111-1").document(uid);

@@ -133,7 +133,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     }
                 });
         //test date
-        String August19 = "08/19/2021";
+        String August25 = "08/25/2021";
 
         //october weekdays
         String October1 = "10/01/2021";
@@ -188,8 +188,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
         String dateOfScan = dateOfQRScan;
 
         //test date
-        if (dateOfScan.equals(August19)) {
-            day = Day4;
+        if (dateOfScan.equals(August25)) {
+            day = Day1;
         }
 
         //october weekdays
@@ -369,7 +369,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFirstBlock >= 0) {
+                } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -387,6 +387,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-1").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -404,7 +406,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFirstBlock >= 0) {
+                } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -422,6 +424,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-1").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -439,7 +443,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSecondBlock >= 0) {
+                } else if (diffInTimeSecondBlock >= 0 && diffInTimeFirstBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -457,6 +461,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-2").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -474,7 +480,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSecondBlock >= 0) {
+                } else if (diffInTimeSecondBlock >= 0 && diffInTimeSecondBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -492,6 +498,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-2").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -509,7 +517,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeThirdBlock >= 0) {
+                } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -527,6 +535,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-3").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -544,7 +554,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeThirdBlock >= 0) {
+                } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -562,6 +572,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-3").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -579,7 +591,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFourthBlock >= 0) {
+                } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -597,6 +609,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-5").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -614,7 +628,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFourthBlock >= 0) {
+                } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -632,6 +646,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-5").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -649,7 +665,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFifthBlock >= 0) {
+                } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -667,6 +683,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-6").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -684,7 +702,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFifthBlock >= 0) {
+                } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -702,6 +720,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-6").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -719,7 +739,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSixthBlock >= 0) {
+                } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -737,6 +757,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-7").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -754,7 +776,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSixthBlock >= 0) {
+                } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -772,6 +794,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-7").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -807,7 +831,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFirstBlock >= 0) {
+                } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -825,6 +849,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-2").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -842,7 +868,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFirstBlock >= 0) {
+                } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -860,6 +886,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-2").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -877,7 +905,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSecondBlock >= 0) {
+                } else if (diffInTimeSecondBlock >= 0 && diffInTimeSecondBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -895,6 +923,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-3").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -912,7 +942,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSecondBlock >= 0) {
+                } else if (diffInTimeSecondBlock >= 0 && diffInTimeSecondBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -930,6 +960,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-3").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -947,7 +979,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeThirdBlock >= 0) {
+                } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -965,6 +997,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-4").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -982,7 +1016,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeThirdBlock >= 0) {
+                } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1000,6 +1034,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-4").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1017,7 +1053,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFourthBlock >= 0) {
+                } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1035,6 +1071,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-6").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1052,7 +1090,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFourthBlock >= 0) {
+                } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1070,6 +1108,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-6").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1087,7 +1127,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFifthBlock >= 0) {
+                } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1105,6 +1145,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-7").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1122,7 +1164,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFifthBlock >= 0) {
+                } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1140,6 +1182,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-7").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1157,7 +1201,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSixthBlock >= 0) {
+                } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1175,6 +1219,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-8").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1192,7 +1238,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSixthBlock >= 0) {
+                } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1210,6 +1256,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-8").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1245,7 +1293,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFirstBlock >= 0) {
+                } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1263,6 +1311,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-3").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1280,7 +1330,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFirstBlock >= 0) {
+                } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1298,6 +1348,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-3").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1315,7 +1367,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSecondBlock >= 0) {
+                } else if (diffInTimeSecondBlock >= 0 && diffInTimeFirstBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1333,6 +1385,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-4").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1350,7 +1404,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSecondBlock >= 0) {
+                } else if (diffInTimeSecondBlock >= 0 && diffInTimeFirstBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1368,6 +1422,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-4").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1385,7 +1441,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeThirdBlock >= 0) {
+                } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1403,6 +1459,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-1").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1420,7 +1478,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeThirdBlock >= 0) {
+                } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1438,6 +1496,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-1").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1455,7 +1515,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFourthBlock >= 0) {
+                } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1473,6 +1533,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-7").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1490,7 +1552,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFourthBlock >= 0) {
+                } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1508,6 +1570,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-7").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1525,7 +1589,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFifthBlock >= 0) {
+                } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1543,6 +1607,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-8").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1560,7 +1626,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFifthBlock >= 0) {
+                } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1578,6 +1644,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-8").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1595,7 +1663,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSixthBlock >= 0) {
+                } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1613,6 +1681,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-5").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1630,7 +1700,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSixthBlock >= 0) {
+                } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1648,6 +1718,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-5").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1683,7 +1755,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFirstBlock >= 0) {
+                } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1701,6 +1773,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-4").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1718,7 +1792,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFirstBlock >= 0) {
+                } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1736,6 +1810,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-4").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1753,7 +1829,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSecondBlock >= 0) {
+                } else if (diffInTimeSecondBlock >= 0 && diffInTimeFirstBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1771,6 +1847,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-1").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1788,7 +1866,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSecondBlock >= 0) {
+                } else if (diffInTimeSecondBlock >= 0 && diffInTimeFirstBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1806,6 +1884,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-1").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1823,7 +1903,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeThirdBlock >= 0) {
+                } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1841,6 +1921,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-2").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1858,7 +1940,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeThirdBlock >= 0) {
+                } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1876,6 +1958,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-2").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1893,7 +1977,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFourthBlock >= 0) {
+                } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1911,6 +1995,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-8").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1928,7 +2014,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFourthBlock >= 0) {
+                } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1946,6 +2032,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-8").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1963,7 +2051,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFifthBlock >= 0) {
+                } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -1981,6 +2069,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-5").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -1998,7 +2088,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeFifthBlock >= 0) {
+                } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -2016,6 +2106,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-5").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -2033,7 +2125,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSixthBlock >= 0) {
+                } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -2051,6 +2143,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("111-6").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -2068,7 +2162,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                                     Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                } else if (diffInTimeSixthBlock >= 0) {
+                } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
@@ -2086,6 +2180,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> absent1 = new HashMap<>();
                     absent1.put("status", status);
                     db.collection("112-6").document(uid2).update(absent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Attendance NOT Updated. This class hasn't started yet, please wait for the class to begin to scan the QR Code", Toast.LENGTH_SHORT).show();
                 }
             }
 
