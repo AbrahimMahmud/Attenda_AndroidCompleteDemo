@@ -26,20 +26,12 @@ public class BtnToScannerActivity extends AppCompatActivity {
         scanResultText = findViewById(R.id.scanResultText);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        btnStartScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), QRScannerActivity.class));
-            }
-        });
+        btnStartScan.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), QRScannerActivity.class)));
 
-        btnEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BtnToScannerActivity.this, EditProfileActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        btnEditProfile.setOnClickListener(view -> {
+            Intent intent = new Intent(BtnToScannerActivity.this, EditProfileActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 }

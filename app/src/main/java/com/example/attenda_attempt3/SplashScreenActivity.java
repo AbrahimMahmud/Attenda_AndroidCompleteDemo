@@ -10,16 +10,13 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    FirebaseAuth firebaseAuth;
     DocumentReference documentReference;
     private static final String TAG = "SplashScreenActivity";
 
@@ -29,10 +26,13 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        Runnable runnable = () -> {
 
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+            if (user != null) {
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 ComponentName componentName = new ComponentName(SplashScreenActivity.this, StatusRemoverMidnightService.class);
                 JobInfo info = new JobInfo.Builder(123, componentName)
                         .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
@@ -45,39 +45,27 @@ public class SplashScreenActivity extends AppCompatActivity {
                 } else {
                     Log.d(TAG, "Job Scheduling Failed");
                 }
-
-
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-
-                if (user != null) {
-                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    documentReference = firebaseFirestore.collection("users").document(uid);
-                    documentReference.get()
-                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    if (documentSnapshot.exists()) {
-                                        Intent intent = new Intent(SplashScreenActivity.this, BtnToScannerActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        Intent intent2 = new Intent(SplashScreenActivity.this, StudentInformationFormActivity.class);
-                                        startActivity(intent2);
-                                        finish();
-                                    }
-                                }
-
-                            });
-                } else {
-                    Intent loginIntent = new Intent(SplashScreenActivity.this, LoginActivityKotlin.class);
-                    startActivity(loginIntent);
-                    finish();
-                }
+                documentReference = firebaseFirestore.collection("users").document(uid);
+                documentReference.get()
+                        .addOnSuccessListener(documentSnapshot -> {
+                            if (documentSnapshot.exists()) {
+                                Intent intent = new Intent(SplashScreenActivity.this, BtnToScannerActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Intent intent2 = new Intent(SplashScreenActivity.this, StudentInformationFormActivity.class);
+                                startActivity(intent2);
+                                finish();
+                            }
+                        });
+            } else {
+                Intent loginIntent = new Intent(SplashScreenActivity.this, LoginActivityKotlin.class);
+                startActivity(loginIntent);
+                finish();
             }
         };
 
-        handler.postDelayed(runnable, 2500);
+        handler.postDelayed(runnable, 1500);
 
     }
 }

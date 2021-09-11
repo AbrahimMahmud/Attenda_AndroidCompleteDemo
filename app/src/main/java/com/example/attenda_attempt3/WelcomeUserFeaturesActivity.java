@@ -32,11 +32,6 @@ public class WelcomeUserFeaturesActivity extends AppCompatActivity {
 
         DocumentReference documentReference = firebaseFirestore.collection("users").document(uid);
 
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                userName.setText(documentSnapshot.getString("studentName"));
-            }
-        });
+        documentReference.addSnapshotListener(this, (documentSnapshot, error) -> userName.setText(documentSnapshot.getString("studentName")));
     }
 }

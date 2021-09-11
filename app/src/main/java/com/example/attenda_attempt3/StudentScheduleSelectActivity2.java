@@ -4,21 +4,15 @@ import static com.example.attenda_attempt3.StudentInformationFormActivity.etFirs
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +29,6 @@ public class StudentScheduleSelectActivity2 extends AppCompatActivity {
     public static String block5Text, block6Text, block7Text, block8Text;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,183 +64,127 @@ public class StudentScheduleSelectActivity2 extends AppCompatActivity {
 
         String fullName = etFirstAndLastName.getText().toString();
 
-        btnOnward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //checkboxBlock5 start
-                if (checkboxBlock5.isChecked()) {
-                    String block5 = etBlock5.getText().toString();
-                    String uid5 = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                    if (block5.equals(r111b5)) {
-                        Map<String, Object> checkbox5 = new HashMap<>();
-                        checkbox5.put("mainClass", block5);
-                        checkbox5.put("studentName", fullName);
-
-                        db.collection(block5).document(uid5).set(checkbox5)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                    if (block5.equals(r112b5)) {
-                        Map<String, Object> checkbox5 = new HashMap<>();
-                        checkbox5.put("mainClass", block5);
-                        checkbox5.put("studentName", fullName);
-
-
-                        db.collection(block5).document(uid5).set(checkbox5)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                }
-                //checkboxBlock5 end
-
-                //checkboxBlock6 start
-                if (checkboxBlock6.isChecked()) {
-
-
-                    String block6 = etBlock6.getText().toString();
-
-                    String uid6 = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                    if (block6.equals(r111b6)) {
-                        Map<String, Object> checkbox6 = new HashMap<>();
-                        checkbox6.put("mainClass", block6);
-                        checkbox6.put("studentName", fullName);
-
-                        db.collection(block6).document(uid6).set(checkbox6)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                    if (block6.equals(r112b6)) {
-                        Map<String, Object> checkbox6 = new HashMap<>();
-                        checkbox6.put("mainClass", block6);
-                        checkbox6.put("studentName", fullName);
-
-                        db.collection(block6).document(uid6).set(checkbox6)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                }
-                //checkboxBlock6 end
-
-                //checkboxBlock7 start
-                if (checkboxBlock7.isChecked()) {
-                    String block7 = etBlock7.getText().toString();
-
-                    String uid7 = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                    if (block7.equals(r111b7)) {
-                        Map<String, Object> checkbox7 = new HashMap<>();
-                        checkbox7.put("mainClass", block7);
-                        checkbox7.put("studentName", fullName);
-
-                        db.collection(block7).document(uid7).set(checkbox7)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                    if (block7.equals(r112b7)) {
-                        Map<String, Object> checkbox7 = new HashMap<>();
-                        checkbox7.put("mainClass", block7);
-                        checkbox7.put("studentName", fullName);
-
-                        db.collection(block7).document(uid7).set(checkbox7)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                }
-                if (checkboxBlock8.isChecked()) {
-                    String block8 = etBlock8.getText().toString();
-
-                    String uid8 = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    if (block8.equals(r111b8)) {
-                        Map<String, Object> checkbox8 = new HashMap<>();
-                        checkbox8.put("mainClass", block8);
-                        checkbox8.put("studentName", fullName);
-
-                        db.collection(block8).document(uid8).set(checkbox8)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                    if (block8.equals(r112b8)) {
-                        Map<String, Object> checkbox8 = new HashMap<>();
-                        checkbox8.put("mainClass", block8);
-                        checkbox8.put("studentName", fullName);
-
-                        db.collection(block8).document(uid8).set(checkbox8)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                }
-
-
-                //send data of ALL blocks to "users" collection for notifications
+        btnOnward.setOnClickListener(view -> {
+            //checkboxBlock5 start
+            if (checkboxBlock5.isChecked()) {
                 String block5 = etBlock5.getText().toString();
+                String uid5 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                if (block5.equals(r111b5)) {
+                    Map<String, Object> checkbox5 = new HashMap<>();
+                    checkbox5.put("mainClass", block5);
+                    checkbox5.put("studentName", fullName);
+
+                    db.collection(block5).document(uid5).set(checkbox5)
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show());
+                }
+                if (block5.equals(r112b5)) {
+                    Map<String, Object> checkbox5 = new HashMap<>();
+                    checkbox5.put("mainClass", block5);
+                    checkbox5.put("studentName", fullName);
+
+
+                    db.collection(block5).document(uid5).set(checkbox5)
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show());
+                }
+            }
+            //checkboxBlock5 end
+
+            //checkboxBlock6 start
+            if (checkboxBlock6.isChecked()) {
+
+
                 String block6 = etBlock6.getText().toString();
+
+                String uid6 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                if (block6.equals(r111b6)) {
+                    Map<String, Object> checkbox6 = new HashMap<>();
+                    checkbox6.put("mainClass", block6);
+                    checkbox6.put("studentName", fullName);
+
+                    db.collection(block6).document(uid6).set(checkbox6)
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show());
+                }
+                if (block6.equals(r112b6)) {
+                    Map<String, Object> checkbox6 = new HashMap<>();
+                    checkbox6.put("mainClass", block6);
+                    checkbox6.put("studentName", fullName);
+
+                    db.collection(block6).document(uid6).set(checkbox6)
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show());
+                }
+            }
+            //checkboxBlock6 end
+
+            //checkboxBlock7 start
+            if (checkboxBlock7.isChecked()) {
                 String block7 = etBlock7.getText().toString();
+
+                String uid7 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                if (block7.equals(r111b7)) {
+                    Map<String, Object> checkbox7 = new HashMap<>();
+                    checkbox7.put("mainClass", block7);
+                    checkbox7.put("studentName", fullName);
+
+                    db.collection(block7).document(uid7).set(checkbox7)
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show());
+                }
+                if (block7.equals(r112b7)) {
+                    Map<String, Object> checkbox7 = new HashMap<>();
+                    checkbox7.put("mainClass", block7);
+                    checkbox7.put("studentName", fullName);
+
+                    db.collection(block7).document(uid7).set(checkbox7)
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show());
+                }
+            }
+            if (checkboxBlock8.isChecked()) {
                 String block8 = etBlock8.getText().toString();
 
-                String block5Text = block5;
-                String block6Text = block6;
-                String block7Text = block7;
-                String block8Text = block8;
+                String uid8 = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                if (block8.equals(r111b8)) {
+                    Map<String, Object> checkbox8 = new HashMap<>();
+                    checkbox8.put("mainClass", block8);
+                    checkbox8.put("studentName", fullName);
 
-                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    db.collection(block8).document(uid8).set(checkbox8)
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show());
+                }
+                if (block8.equals(r112b8)) {
+                    Map<String, Object> checkbox8 = new HashMap<>();
+                    checkbox8.put("mainClass", block8);
+                    checkbox8.put("studentName", fullName);
 
-                Map<String, Object> schedule2 = new HashMap<>();
-                schedule2.put("block5", block5);
-                schedule2.put("block6", block6);
-                schedule2.put("block7", block7);
-                schedule2.put("block8", block8);
-
-                db.collection("users").document(uid).update(schedule2)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(getApplicationContext(), "Data Saved", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(StudentScheduleSelectActivity2.this, BtnToScannerActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull @NotNull Exception e) {
-                                Toast.makeText(getApplicationContext(), "Error Occurred, Data Not Saved", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                    db.collection(block8).document(uid8).set(checkbox8)
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Main Class Set", Toast.LENGTH_SHORT).show());
+                }
             }
+
+
+            //send data of ALL blocks to "users" collection for notifications
+            String block5 = etBlock5.getText().toString();
+            String block6 = etBlock6.getText().toString();
+            String block7 = etBlock7.getText().toString();
+            String block8 = etBlock8.getText().toString();
+
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            Map<String, Object> schedule2 = new HashMap<>();
+            schedule2.put("block5", block5);
+            schedule2.put("block6", block6);
+            schedule2.put("block7", block7);
+            schedule2.put("block8", block8);
+
+            db.collection("users").document(uid).update(schedule2)
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(getApplicationContext(), "Data Saved", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(StudentScheduleSelectActivity2.this, BtnToScannerActivity.class);
+                        startActivity(intent);
+                        finish();
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error Occurred, Data Not Saved", Toast.LENGTH_SHORT).show());
         });
     }
 }

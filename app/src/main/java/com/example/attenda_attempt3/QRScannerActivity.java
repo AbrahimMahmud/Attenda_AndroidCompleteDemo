@@ -2,17 +2,12 @@ package com.example.attenda_attempt3;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.Result;
@@ -23,8 +18,6 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,7 +25,6 @@ import java.util.Map;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class QRScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     public static String dateOfQRScan;
@@ -82,7 +74,6 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                         permissionToken.continuePermissionRequest();
                     }
                 }).check();
-
     }
 
     @Override
@@ -110,30 +101,19 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
         db.collection("dateOfScanForStatus").document("dateOfScanForStatus").update(Date);
 
         db.collection("users").document(uid).update(Block)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Runnable runnable = new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(QRScannerActivity.this, AttendanceSubmittedActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
-                            }
-                        };
-                        Handler handler = new Handler();
-                        handler.postDelayed(runnable, 1);
-                    }
+                .addOnSuccessListener(unused -> {
+                    Runnable runnable = () -> {
+                        Intent intent = new Intent(QRScannerActivity.this, AttendanceSubmittedActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    };
+                    Handler handler = new Handler();
+                    handler.postDelayed(runnable, 1);
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull @NotNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error Occurred, Data Not Saved", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error Occurred, Data Not Saved", Toast.LENGTH_SHORT).show());
         //test date
-        String August25 = "08/25/2021";
+        String September11 = "09/11/2021";
 
         //october weekdays
         String October1 = "10/01/2021";
@@ -188,8 +168,8 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
         String dateOfScan = dateOfQRScan;
 
         //test date
-        if (dateOfScan.equals(August25)) {
-            day = Day1;
+        if (dateOfScan.equals(September11)) {
+            day = Day4;
         }
 
         //october weekdays
@@ -317,12 +297,7 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
         dayOfScan.put("dayOneToFour`", day);
 
         db.collection("dayOneThroughFour").document("dayOneThoughFour").set(dayOfScan)
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error, Day Not Set", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error, Day Not Set", Toast.LENGTH_SHORT).show());
 
         int timeForStatusNum = Integer.parseInt(timeForStatus);
 
@@ -363,24 +338,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-1").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-1").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock < -60) {
                     String status;
                     status = absent;
@@ -400,24 +365,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-1").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-1").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock < -60) {
                     String status;
                     status = absent;
@@ -437,24 +392,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-2").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock >= 0 && diffInTimeFirstBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-2").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock < -50) {
                     String status;
                     status = absent;
@@ -474,24 +419,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-2").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock >= 0 && diffInTimeSecondBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-2").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock < -50) {
                     String status;
                     status = absent;
@@ -511,24 +446,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-3").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-3").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock < -50) {
                     String status;
                     status = absent;
@@ -548,24 +473,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-3").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-3").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock < -50) {
                     String status;
                     status = absent;
@@ -585,24 +500,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-5").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-5").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock < -50) {
                     String status;
                     status = absent;
@@ -622,24 +527,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-5").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-5").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock < -50) {
                     String status;
                     status = absent;
@@ -659,24 +554,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-6").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-6").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock < -50) {
                     String status;
                     status = absent;
@@ -696,24 +581,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-6").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-6").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock < -50) {
                     String status;
                     status = absent;
@@ -733,24 +608,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-7").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-7").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock < -55) {
                     String status;
                     status = absent;
@@ -770,24 +635,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-7").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-7").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock < -55) {
                     String status;
                     status = absent;
@@ -801,18 +656,18 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //IF USER SCANS BLOCK 4 QR CODE, IT RETURNS TOAST
             if (QRScanText.equals(r111b4)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 4 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 4 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
             if (QRScanText.equals(r112b4)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 4 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 4 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
 
             //IF USER SCANS BLOCK 8 QR CODE, IT RETURNS TOAST
             if (QRScanText.equals(r111b8)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 8 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 8 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
             if (QRScanText.equals(r112b8)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 8 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 8 On A Day 1, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -825,24 +680,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-2").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-2").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock < -60) {
                     String status;
                     status = absent;
@@ -862,24 +707,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-2").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-2").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock < -60) {
                     String status;
                     status = absent;
@@ -899,24 +734,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-3").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock >= 0 && diffInTimeSecondBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-3").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock < -50) {
                     String status;
                     status = absent;
@@ -936,24 +761,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-3").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock >= 0 && diffInTimeSecondBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-3").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock < -50) {
                     String status;
                     status = absent;
@@ -973,24 +788,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-4").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-4").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock < -50) {
                     String status;
                     status = absent;
@@ -1010,24 +815,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-4").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-4").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock < -50) {
                     String status;
                     status = absent;
@@ -1047,24 +842,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-6").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-6").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock < -50) {
                     String status;
                     status = absent;
@@ -1084,24 +869,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-6").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-6").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock < -50) {
                     String status;
                     status = absent;
@@ -1121,24 +896,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-7").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-7").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock < -50) {
                     String status;
                     status = absent;
@@ -1158,24 +923,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-7").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-7").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock < -50) {
                     String status;
                     status = absent;
@@ -1195,24 +950,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-8").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-8").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock < -55) {
                     String status;
                     status = absent;
@@ -1232,24 +977,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-8").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-8").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock < -55) {
                     String status;
                     status = absent;
@@ -1263,18 +998,18 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //IF USER SCANS BLOCK 4 QR CODE, IT RETURNS TOAST
             if (QRScanText.equals(r111b1)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 1 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 1 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
             if (QRScanText.equals(r112b1)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 1 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 1 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
 
             //IF USER SCANS BLOCK 8 QR CODE, IT RETURNS TOAST
             if (QRScanText.equals(r111b5)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 5 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 5 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
             if (QRScanText.equals(r112b5)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 5 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 5 On A Day 2, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -1287,24 +1022,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-3").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-3").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock < -60) {
                     String status;
                     status = absent;
@@ -1324,24 +1049,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-3").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-3").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock < -60) {
                     String status;
                     status = absent;
@@ -1361,24 +1076,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-4").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock >= 0 && diffInTimeFirstBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-4").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock < -50) {
                     String status;
                     status = absent;
@@ -1398,24 +1103,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-4").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock >= 0 && diffInTimeFirstBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-4").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock < -50) {
                     String status;
                     status = absent;
@@ -1435,24 +1130,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-1").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-1").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock < -50) {
                     String status;
                     status = absent;
@@ -1472,24 +1157,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-1").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-1").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock < -50) {
                     String status;
                     status = absent;
@@ -1509,24 +1184,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-7").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-7").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock < -50) {
                     String status;
                     status = absent;
@@ -1546,24 +1211,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-7").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-7").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock < -50) {
                     String status;
                     status = absent;
@@ -1583,24 +1238,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-8").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-8").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock < -50) {
                     String status;
                     status = absent;
@@ -1620,24 +1265,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-8").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-8").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock < -50) {
                     String status;
                     status = absent;
@@ -1657,24 +1292,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-5").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-5").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock < -55) {
                     String status;
                     status = absent;
@@ -1694,24 +1319,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-5").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-5").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock < -55) {
                     String status;
                     status = absent;
@@ -1725,18 +1340,18 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //IF USER SCANS BLOCK 2 QR CODE, IT RETURNS TOAST
             if (QRScanText.equals(r111b2)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 2 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 2 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
             if (QRScanText.equals(r112b2)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 2 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 2 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
 
             //IF USER SCANS BLOCK 6 QR CODE, IT RETURNS TOAST
             if (QRScanText.equals(r111b6)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 6 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 6 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
             if (QRScanText.equals(r112b6)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 6 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 6 On A Day 3, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -1749,24 +1364,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-4").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-4").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock < -60) {
                     String status;
                     status = absent;
@@ -1786,24 +1391,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-4").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock >= 0 && diffInTimeFirstBlock <= 35) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-4").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFirstBlock < -60) {
                     String status;
                     status = absent;
@@ -1823,24 +1418,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-1").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock >= 0 && diffInTimeFirstBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-1").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock < -50) {
                     String status;
                     status = absent;
@@ -1860,24 +1445,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-1").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock >= 0 && diffInTimeFirstBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-1").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSecondBlock < -50) {
                     String status;
                     status = absent;
@@ -1897,24 +1472,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-2").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-2").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock < -50) {
                     String status;
                     status = absent;
@@ -1934,24 +1499,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-2").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock >= 0 && diffInTimeThirdBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-2").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeThirdBlock < -50) {
                     String status;
                     status = absent;
@@ -1971,24 +1526,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-8").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-8").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock < -50) {
                     String status;
                     status = absent;
@@ -2008,24 +1553,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-8").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock >= 0 && diffInTimeFourthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-8").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFourthBlock < -50) {
                     String status;
                     status = absent;
@@ -2045,24 +1580,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-5").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-5").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock < -50) {
                     String status;
                     status = absent;
@@ -2082,24 +1607,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-5").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock >= 0 && diffInTimeFifthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-5").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeFifthBlock < -50) {
                     String status;
                     status = absent;
@@ -2119,24 +1634,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("111-6").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("111-6").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock < -55) {
                     String status;
                     status = absent;
@@ -2156,24 +1661,14 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
                     Map<String, Object> tardy1 = new HashMap<>();
                     tardy1.put("status", status);
                     db.collection("112-6").document(uid2).update(tardy1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Tardy", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock >= 0 && diffInTimeSixthBlock <= 10) {
                     String status;
                     status = present;
                     Map<String, Object> present1 = new HashMap<>();
                     present1.put("status", status);
                     db.collection("112-6").document(uid2).update(present1)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            .addOnSuccessListener(unused -> Toast.makeText(getApplicationContext(), "Status Updated: Present", Toast.LENGTH_SHORT).show());
                 } else if (diffInTimeSixthBlock < -55) {
                     String status;
                     status = absent;
@@ -2187,18 +1682,18 @@ public class QRScannerActivity extends AppCompatActivity implements ZXingScanner
 
             //IF USER SCANS BLOCK 3 QR CODE, IT RETURNS TOAST
             if (QRScanText.equals(r111b3)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 3 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 3 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
             if (QRScanText.equals(r112b3)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 3 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 3 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
 
             //IF USER SCANS BLOCK 7 QR CODE, IT RETURNS TOAST
             if (QRScanText.equals(r111b7)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 7 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 7 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
             if (QRScanText.equals(r112b7)) {
-                Toast.makeText(getApplicationContext(), "You Do Not Have Block 7 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You Do Not Have Block 7 On A Day 4, Please Make Your Way To The Right Class", Toast.LENGTH_LONG).show();
             }
         }
     }

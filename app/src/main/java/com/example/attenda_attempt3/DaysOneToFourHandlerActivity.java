@@ -5,10 +5,8 @@ import static com.example.attenda_attempt3.QRScannerActivity.dateOfQRScan;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -25,7 +23,7 @@ public class DaysOneToFourHandlerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_status_handler);
 
         //test date
-        String August14 = "08/14/2021";
+        String September11 = "09/11/2021";
 
         //october weekdays
         String October1 = "10/01/2021";
@@ -80,7 +78,7 @@ public class DaysOneToFourHandlerActivity extends AppCompatActivity {
         String dateOfScan = dateOfQRScan;
 
         //test date
-        if (dateOfScan.equals(August14)) {
+        if (dateOfScan.equals(September11)) {
             day = Day4;
         }
 
@@ -209,11 +207,6 @@ public class DaysOneToFourHandlerActivity extends AppCompatActivity {
         dayOfScan.put("dayOneToFour`", day);
 
         db.collection("dayOneThroughFour").document("dayOneThoughFour").set(dayOfScan)
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error, Day Not Set", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Error, Day Not Set", Toast.LENGTH_SHORT).show());
     }
 }

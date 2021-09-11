@@ -46,13 +46,10 @@ public class AttendanceSubmittedActivity extends AppCompatActivity {
             }
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AttendanceSubmittedActivity.this, BtnToScannerActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        btnBack.setOnClickListener(view -> {
+            Intent intent = new Intent(AttendanceSubmittedActivity.this, BtnToScannerActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 }
